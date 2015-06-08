@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>SpringMVCTest</display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 
+		http://www.cnblogs.com/hzj-/articles/1689836.html
+		http://xifeng91.iteye.com/blog/361802
+	 -->
+	
+	<!-- 
+		如果没有contextConfigLocation 指定配置文件，则Spring 自动查找applicationContext.xml 配置文件。
+		如果有contextConfigLocation，则利用该参数确定的配置文件。
+		该参数指定的一个字符串， Spring 的ContextLoaderListener 负责将该字符串分解成多个配置文件，
+		逗号"，"、空格" "及分号";"都可作为字符串的分割符。
+		如果既没有applicationContext. xrnl 文件，也没有使用contextConfigLocation参数确定配置文件，
+		或者contextConfigLocation确定的配置文件不存在。都将导致Spring 无法
+		加载配置文件或无法正常创建ApplicationContext 实例
+	 -->
+
+	<!-- 配置Spring，因为它实现了ServletContextListener这个接口，在web.xml配置这个监听器，启动容器时，就会默认执行它实现的方法。
+	ContextLoaderListener的作用就是启动Web容器时，自动装配ApplicationContext的配置信息-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- 加载所有的配置文件 这里我将配置文件置于源码包中 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:spring/spring-*.xml</param-value>
+	</context-param>
+
+	<!-- 此处dispatcher-servlet加载applicationContext.xml中的viewResolver -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+						classpath:spring/spring-mvc.xml
+			</param-value>
+			<!-- <param-value>/WEB-INF/dispatcher-servlet.xml</param-value> -->
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 出错页面定义，路径需要如下定义，否则显示空白页面 -->
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/views/error/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/error/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/views/error/500.jsp</location>
+	</error-page>
+
+
+
+</web-app>
