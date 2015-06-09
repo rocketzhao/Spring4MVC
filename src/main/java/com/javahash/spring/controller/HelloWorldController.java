@@ -26,7 +26,7 @@ public class HelloWorldController {
 		return "index";
 	}
 
-	@RequestMapping("/hello.html")
+	@RequestMapping("/helloworld")
 	public String hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name, 
 			Model model) {
 		model.addAttribute("name", name);

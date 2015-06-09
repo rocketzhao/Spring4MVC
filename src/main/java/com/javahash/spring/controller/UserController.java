@@ -27,18 +27,37 @@ public class UserController extends BaseController {
 
 	@RequestMapping("/user/login")
 	public String login(HttpServletRequest request, Model model) {
+		
+		System.out.println("-------清除权限session开始-------");
+		RemoveSession.removeRightSession(request);
+		System.out.println("-------清除权限session结束-------");
+		
+		/**
+		 * 若已经登录，则直接返回主页
+		 */
+		if ((String) request.getSession().getAttribute("login") != null
+				&& ((String) request.getSession().getAttribute("login"))
+						.equals("alreadyLogin")) {
+			return "main";
+		}
+		
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
-		logger.info(name + "+" + password);
+		logger.info(name + " + " + password);
 		User user_login = userService.login(name, password);
 
 		if (user_login == null) {
 			logger.error("Error login!");
 			return "fail";
 		} else {
+			/**
+			 * 登录成功后，将信息存放至session
+			 */
+			request.getSession().setAttribute("login", "alreadyLogin");
+			request.getSession().setAttribute("userName", name);
 			logger.info(user_login.toString());
 			model.addAttribute("user", user_login);
-			return "success";
+			return "main";
 		}
 	}
 
