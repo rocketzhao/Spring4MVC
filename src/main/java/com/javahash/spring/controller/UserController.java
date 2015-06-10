@@ -1,6 +1,8 @@
 package com.javahash.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,12 +57,32 @@ public class UserController extends BaseController {
 			 */
 			request.getSession().setAttribute("login", "alreadyLogin");
 			request.getSession().setAttribute("userName", name);
+			request.getSession().setAttribute("level", "");
 			logger.info(user_login.toString());
+			initPurview(request);
 			model.addAttribute("user", user_login);
 			return "main";
 		}
 	}
 
+	// 权限初始化
+	private void initPurview(HttpServletRequest request) {
+		// 将登录用户的系统权限保存的session会话中
+		String[] rights = {"100","102","104","105","106","107",
+				"200","201","202","206",
+				"300","301","302","303"};
+		if (rights != null && rights.length > 0) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			for (int i = 0; i < rights.length; i++) {
+				map.put(rights[i], rights[i]);
+				System.out.println("此管理员应有权限：modelNo_" + rights[i].trim()
+						+ ":" + rights[i].trim());
+			}
+			request.getSession().setAttribute("purview", map);// 在session中保存用户权限
+		}
+	}
+
+	
 	@RequestMapping("/user/list")
 	public String getAllUsers(Model model) {
 		List<User> users = userService.getAllUsers();

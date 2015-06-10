@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@page import="com.javahash.spring.controller.RemoveSession"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+	RemoveSession.removeExitSession(request);
+%>
+<%@ include file="common/taglibs.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,16 +21,16 @@
     <title>login</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="${pageContext.request.contextPath}/resource/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath}/resource/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="${pageContext.request.contextPath}/resource/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="${basePath}/resource/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="${pageContext.request.contextPath}/resource/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="${basePath}/resource/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="${pageContext.request.contextPath}/resource/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="${basePath}/resource/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,6 +38,97 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <!-- jQuery -->
+	<script src="${basePath}/resource/bower_components/jquery/dist/jquery.min.js"></script>
+	
+	<!-- Bootstrap Core JavaScript -->
+	<script src="${basePath}/resource/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="${basePath}/resource/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+	
+	<!-- Morris Charts JavaScript -->
+	<script src="${basePath}/resource/bower_components/raphael/raphael-min.js"></script>
+	
+	<!-- Custom Theme JavaScript -->
+	<script src="${basePath}/resource/dist/js/sb-admin-2.js"></script>
+
+	<script type="text/javascript">
+			if (window != top) { 
+				top.location.href = location.href; //如果当前窗口不是最上层窗口（比如是在Iframe中），那么就把自己变为最上层窗口。这可以防止别的网站把你自己的网站放在他的Iframe中，从而损害你的利益（因为会误导浏览者）。 
+			}
+		
+			$(document).ready(function(){
+				/* 
+				$("#verifypic").click(function(){
+	         		$("#validateCode").attr("src","<s:url value='/common/validatecode.jsp'/>?" + Math.random());
+				}); //验证码，以后再做
+				*/
+				
+				//密码显示，不知道干什么，先不看
+				/* var password=$("#password").val();
+				if(password==''){
+					$("#coverPass").css("display","block");
+					$("#password").css("display","none");
+				}else{
+					$("#coverPass").css("display","none");
+					$("#password").css("display","block");
+				}
+				$("#coverPass").focus(function(){
+					$(this).css("display","none");
+					$("#password").css("display","block");
+					$("#password").focus();
+				});
+				$("#password").blur(function(){
+					if($(this).val()==''){
+						$("#coverPass").css("display","block");
+						$(this).css("display","none");
+					}
+				}); */
+			});
+			
+			function formSubmit() {
+				var username = $("#username").val();
+		    	var password = $("#password").val();
+		    	//var code = $("#code").val();
+		    	if(username=null || username==''||username=='用户名'){
+		    		alert('用户名不能为空!');
+		    		$("#username").focus();
+		    		return false;
+		    	}else if(password==null || password==''||password=='密码'){
+		    		alert('密码不能为空!');
+		    		$("#password").focus();
+		    		return false;
+		    	}/* else if(code==null || code==''||code=='密码'){
+		    		alert('验证码不能为空!');
+		    		$("#code").focus();
+		    		return false;
+		    	} */
+		    	this.loginForm.submit();
+			}
+				
+			//按回车提交 
+			function keydown(e){ 
+				var explorer = window.navigator.userAgent ;
+				//ie //Chrome
+				if (explorer.indexOf("MSIE") >= 0||explorer.indexOf("Chrome") >= 0) {
+					if (event.keyCode == 13)   
+				       {    
+				          formSubmit();      
+				       }    
+				}
+				//firefox 
+				else if (explorer.indexOf("Firefox") >= 0) {
+					if (e.which== 13)   
+				       {    
+				           formSubmit();  
+				       }    
+				}
+			} 
+			document.onkeydown=keydown;
+
+		</script>
 
 </head>
 <body>
@@ -49,22 +148,22 @@
                     </div>
                     
                     <div class="panel-body">
-                        <form role="form" action="user/login" method="post" >
+                        <form id="loginForm" role="form" action="user/login" method="post" >
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
+                                    <input id="username" name="username" type="text" class="form-control" placeholder="Username"  autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input id="password" name="password" type="password" value="" class="form-control" placeholder="Password" >
                                 </div>
-                                <!-- <div class="checkbox">
+                                <!-- 以后再做
+                                <div class="checkbox">
                                     <label>
                                         <input name="remember" type="checkbox" value="Remember Me">Remember Me
                                     </label>
-                                </div> -->
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
-                                <button type="submit" name="Submit" class="btn btn-lg btn-success btn-block" >登录</button>
+                                </div> 
+                                -->
+                                <input type="button" value="登录" class="btn btn-lg btn-success btn-block" onclick="formSubmit()" />
                             </fieldset>
                         </form>
                     </div>
@@ -73,20 +172,6 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-	<script src="${pageContext.request.contextPath}/resource/bower_components/jquery/dist/jquery.min.js"></script>
-	
-	<!-- Bootstrap Core JavaScript -->
-	<script src="${pageContext.request.contextPath}/resource/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	
-	<!-- Metis Menu Plugin JavaScript -->
-	<script src="${pageContext.request.contextPath}/resource/bower_components/metisMenu/dist/metisMenu.min.js"></script>
-	
-	<!-- Morris Charts JavaScript -->
-	<script src="${pageContext.request.contextPath}/resource/bower_components/raphael/raphael-min.js"></script>
-	
-	<!-- Custom Theme JavaScript -->
-	<script src="${pageContext.request.contextPath}/resource/dist/js/sb-admin-2.js"></script>
 	
 </body>
 </html>
