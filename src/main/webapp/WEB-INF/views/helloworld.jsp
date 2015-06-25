@@ -28,6 +28,12 @@
 <body>
 	<h1>Hello : ${name}</h1>
 	<p>你好世界</p>
+	<a href="list">用户信息列表</a><br/><br/>
+	<div position="left" title="主要菜单" id="accordion1">
+		<div title="123">
+	    	<a href="http://www.baidu.com" >test</a>
+	    </div>
+    </div>
 	<%-- <img alt="图片" src="${pageContext.request.contextPath}/resource/styles/img/Pattern.png"> --%>
 	
 	<ul class="nav nav-tabs" id="myTab"> 
@@ -42,7 +48,9 @@
       <div class="tab-pane fade" id="profile">2...</div> 
       <div class="tab-pane fade" id="messages">3...</div> 
       <div class="tab-pane fade" id="settings">4...</div> 
-    </div> 
+    </div>
+    
+    
 	
 </body>
 </html>

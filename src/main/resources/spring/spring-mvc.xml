@@ -41,6 +41,10 @@
 	<!-- 1.4.性能肯定没有tomcat的配置来的高，但是tomcat配置不出来。 -->
 	<mvc:resources mapping="/resource/**" location="/WEB-INF/resource/" />
 	<mvc:default-servlet-handler />
+	
+	<!-- <mvc:interceptors>
+    	<bean class="net.viralpatel.spring3.interceptor.HelloWorldInterceptor" />  
+    </mvc:interceptors> -->
 
 	<!-- 1.5.配置viewResolver -->
 	<bean

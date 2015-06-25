@@ -56,7 +56,7 @@ public class UserController extends BaseController {
 			 * 登录成功后，将信息存放至session
 			 */
 			request.getSession().setAttribute("login", "alreadyLogin");
-			request.getSession().setAttribute("userName", name);
+			request.getSession().setAttribute("username", name);
 			request.getSession().setAttribute("level", "");
 			logger.info(user_login.toString());
 			initPurview(request);
@@ -88,7 +88,7 @@ public class UserController extends BaseController {
 		List<User> users = userService.getAllUsers();
 		model.addAttribute("users", users);
 		logger.info(users.toString());
-		return "list";
+		return "helloworld";
 	}
 
 	@RequestMapping(value = "/user/getUserInfo/{id}", method = RequestMethod.POST)
