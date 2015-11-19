@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans      
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<bean id="myTestBean" class="com.javahash.spring.test.MyTestBean"/>
+
+	<bean id="myTestBean2" class="com.javahash.spring.test.MyTestBean2">
+		<!-- <constructor-arg value="Lilei"></constructor-arg> -->
+		<property name="name" value="HanMeimei"></property>
+	</bean>
+
+
+
+</beans>

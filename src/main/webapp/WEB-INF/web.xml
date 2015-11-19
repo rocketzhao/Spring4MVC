@@ -19,8 +19,8 @@
 		如果有contextConfigLocation，则利用该参数确定的配置文件。
 		该参数指定的一个字符串， Spring 的ContextLoaderListener 负责将该字符串分解成多个配置文件，
 		逗号"，"、空格" "及分号";"都可作为字符串的分割符。
-		如果既没有applicationContext. xrnl 文件，也没有使用contextConfigLocation参数确定配置文件，
-		或者contextConfigLocation确定的配置文件不存在。都将导致Spring 无法
+		如果既没有applicationContext.xml 文件，也没有使用contextConfigLocation参数确定配置文件，
+		或者contextConfigLocation确定的配置文件不存在，都将导致Spring 无法
 		加载配置文件或无法正常创建ApplicationContext 实例
 	 -->
 

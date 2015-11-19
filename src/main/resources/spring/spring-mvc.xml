@@ -62,7 +62,7 @@
 	<bean 
 		class="com.javahash.spring.exception.handler.CustomExceptionHandler" />
 
-	<!-- 3.1.配置国际化资源文件路径 -->
+	<!-- 3.1.配置国际化资源文件路径。Spring的国际化配置中一共有以下3中方式。 -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
@@ -81,6 +81,10 @@
 
 	<!-- 3.3.基于Session的本地化解析器 TODO -->
 	<!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" 
+		/> -->
+		
+	<!-- 3.4.基于URL参数的配置 -->
+	<!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" 
 		/> -->
 
 

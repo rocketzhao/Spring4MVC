@@ -460,7 +460,7 @@ body {
 			</div>
 		</div>
 		<div style="height: 32px; line-height: 32px; text-align: center;">
-			Copyright © 2011-2013 <a href="http://www.baidu.com" target="_blank" class="aa">www.baidu.com</a>
+			Copyright © 2011-2015 <a href="http://www.rocketzhao.com" target="_blank" class="aa">www.rocketzhao.com</a>
 		</div>
 		<div style="display: none"></div>
 	</body>
